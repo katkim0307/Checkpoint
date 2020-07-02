@@ -1,22 +1,20 @@
 /*
 PLEASE DO NOT TOUCH THE TEST SECTION
 
-ALL FUNCTION HAVE BEEN DECLARED FOR YOU BUT YOU WILL NEED TO
-MANIPULATE THE DEFINITION ALONG WITH THE PARAMETERS
-
+ALL FUNCTION HAVE BEEN DECLARED FOR YOU BUT YOU WILL NEED TO MANIPULATE THE DEFINITION ALONG WITH THE PARAMETERS
 */
 
 /*
 EXAMPLE
 
-CREATE A FUNCTION THAT TAKES ONE ARGUMENT, AN ARRAY, AND ADDS OR MUTATES (MEANING CHANGE) THE ZEROTH ELEMENT TO ZERO AND RETURNS THAT ARRAY
+CREATE A FUNCTION THAT TAKES ONE ARGUMENT, AN ARRAY, AND 
+ADDS OR MUTATES (MEANING CHANGE) THE ZEROTH ELEMENT TO ZERO AND RETURNS THAT ARRAY
 
 e.g.
 
 mutateZeroElem([]) ===> [0]
 mutateZeroElem([1]) ===> [0]
 mutateZeroElem([1,2,3]) ===> [0, 2, 3]
-
 */
 
 function mutateZeroElem(anyArray) {
@@ -25,68 +23,83 @@ function mutateZeroElem(anyArray) {
   return anyArray;
 }
 
+
+
 /*
 QUESTION 1
 
-CREATE A FUNCTION THAT TAKES ONE ARGUMENT, AN ARRAY, AND ADDS THE STRING 'last element' TO THE END AND RETURNS THAT ARRAY. DO NOT USE array.push(elem)!!!!!
+CREATE A FUNCTION THAT TAKES ONE ARGUMENT, AN ARRAY, AND 
+ADDS THE STRING 'last element' TO THE END AND RETURNS THAT ARRAY. 
+DO NOT USE array.push(elem)!!!!!
 
-e.g.
-
+EXAMPLE:
 pushTrue([]) ===> ['last element']
 pushTrue([1]) ===> [1, 'last element']
 pushTrue([1,2,3]) ===> [1, 2, 3, 'last element']
-
 */
 
 function pushString(arr) {
   // CODE HERE
-  console.log(arr);
+  // arr = arr.concat(['last element]);
+  arr[arr.length]='last element';
+  return arr;
 }
+
+
 
 /*
 QUESTION 2
 
-CREATE A FUNCTION THAT TAKES TWO ARGUMENTS, AN ARRAY AND A VALUE IT THEN PUSHES THE VALUE INTO THE END OF THE ARGUMENT AND RETURNS THE ARRAY
+CREATE A FUNCTION THAT TAKES TWO ARGUMENTS, AN ARRAY AND A VALUE 
+IT THEN PUSHES THE VALUE INTO THE END OF THE ARGUMENT AND RETURNS THE ARRAY
 PLEASE DO NOT USE array.push()
 
-e.g.
-
+EXAMPLE:
 mutateZeroElem([]) ===> [true]
 mutateZeroElem([1]) ===> [1, true]
 mutateZeroElem([1,2,3]) ===> [1, 2, 3, true]
 
 */
 
-function push(array, value) {
+function push(array, value=true) {
   // CODE HERE
+  // array = array.concat(value);
+  array[array.length] = value;
+  return array;
 }
+
+
 
 /*
 QUESTION 3
 
-CREATE A FUNCTION THAT TAKES ONE ARGUMENTS, AN ARRAY AND THEN ITERATES (LOOPS OVER) THE ARRAY AND LOGS TO THE CONSOLE EACH ELEMENT
+CREATE A FUNCTION THAT TAKES ONE ARGUMENTS, AN ARRAY AND THEN 
+ITERATES (LOOPS OVER) THE ARRAY AND LOGS TO THE CONSOLE EACH ELEMENT
 
-
-e.g.
-
+EXAMPLE:
 printElements([1, true, 'I am the third element', 'my index is 3 confusing right']) ===>
 OUTPUT:
-
 1
 true
 'I am the third element'
 'my index is 3 confusing right'
-
 */
 
 function printElements(array) {
   // CODE HERE
+  for(let i=0; i<array.length; i++) {
+    console.log(array[i]);
+  }
 }
+
+
 
 /*
 QUESTION 4
 
-CREATE A FUNCTION THAT TAKES ONE ARGUMENT, AN ARRAY, AND RETURNS A NEW ARRAY THAT HAS ONLY UNIQUE VALUES IN THE SAME ORDER THEY FIRST APPEAR IN THE ORIGINAL ARRAY
+CREATE A FUNCTION THAT TAKES ONE ARGUMENT, AN ARRAY, AND 
+RETURNS A NEW ARRAY THAT HAS ONLY UNIQUE VALUES 
+IN THE SAME ORDER THEY FIRST APPEAR IN THE ORIGINAL ARRAY
 
 DON'T USE indexOF!!!!!!
 
@@ -101,74 +114,112 @@ for(var i = 0; i < array.length; i++) {
   }
 }
 
-e.g.
-
+EXAMPLE:
 unique([1,1,1,1,1,1]) ===> [1];
-
 unique([1,2,3,2,3,2]) ===> [1, 2, 3];
 */
 
 function unique(array) {
   // CODE HERE
+  let numSet = new Set ();
+  for(let i=0; i<array.length; i++){
+    numSet.add(array[i]);
+  }
+
+  return Array.from(numSet);
 }
+
+
 
 /*
 QUESTION 5
 
-CREATE A FUNCTION THAT TAKES TWO ARGUMEMNTS, ARRAYS, AND RETURN true IF THEY CONTAIN TWO OF THE SAME ELEMENTS OTHERWISE RETURN FALSE
+CREATE A FUNCTION THAT TAKES TWO ARGUMEMNTS, ARRAYS, AND 
+RETURN true IF THEY CONTAIN TWO OF THE SAME ELEMENTS OTHERWISE RETURN FALSE
 DO NOT USE indexOf
 
 HINT USE AN INNER FOR-LOOP
-
-
-
 */
 
 function compare(array1, array2) {
   // CODE HERE
+  let set1 = new Set();
+  let set2 = new Set();
+  for(let i=0; i<array1.length; i++){
+    set1.add(array1[i]);
+    set2.add(array2[i]);
+  }
+
+  let newArr1 = Array.from(set1);
+  let newArr2 = Array.from(set2);
+  let commonArr=[];
+  for(i=0; i<newArr1.length; i++){
+    for(let j=0; j<newArr2.length; j++){
+      if(newArr1[i]===newArr2[j]) {
+        commonArr.push(newArr1[i]);
+      }
+    }
+  }
+
+  return commonArr.length===2;
 }
+
+
 
 /*
 QUESTION 6
 
-CREATE A FUNCTION THAT TAKES TWO ARGUMENTS, ARRAYS,  AND RETURNS A NEW ARRAY THAT HAS ELEMENTS THAT BOTH ARGUMENTS CONTAIN, THERE WILL BE NO DUPLICATES
-
+CREATE A FUNCTION THAT TAKES TWO ARGUMENTS, ARRAYS, AND 
+RETURNS A NEW ARRAY THAT HAS ELEMENTS THAT BOTH ARGUMENTS CONTAIN.
+THERE WILL BE NO DUPLICATES
 
 compareArrays([1, 2, 3, 4], [5, 6, 7, 8]) ===> []
 compareArrays([1, 2, 3, 4], [1, 2]) ====> [1, 2]
-
-
 */
 
 function compareArrays(array1, array2) {
   // CODE HERE
+  let commonArr=[];
+  for(i=0; i<array1.length; i++){
+    for(let j=0; j<array2.length; j++){
+      if(array1[i]===array2[j]) {
+        commonArr.push(array1[i]);
+      }
+    }
+  }
+  return commonArr;
 }
+
+
 
 /*
 QUESTION 7
 
 TAKES TWO ARRAYS AND RETURNS AN ARRAY THAT HAS ELEMENTS THAT ARE UNIQUE TO THE FIRST ARRAY!
 
-e.g.
-
+EXAMPLE:
 compareArraysOpposite([1,2,3,4], [1,3]) ===> [2, 4]
-
 */
 
 function compareArraysOpposite(array1, array2) {
   // CODE HERE
+  let uniqueSet= new Set();
+  for(i=0; i<array1.length; i++){
+    if(!array2.includes(array1[i])) {
+      uniqueSet.add(array1[i]);
+    }
+  }
+  return Array.from(uniqueSet);
 }
 
 /*
 QUESTION 8
 
-
-CREATE A FUNCTION THAT TAKES THREE ARGUMENTS, A 2D ARRAY AND TWO INTEGERS TO REPRESENT COLUMNS AND ROWS. THE FUNCTION RETURNS THE VALUE OF THAT COLUMN AND ROW
+CREATE A FUNCTION THAT TAKES THREE ARGUMENTS, A 2D ARRAY AND TWO INTEGERS TO REPRESENT COLUMNS AND ROWS. 
+THE FUNCTION RETURNS THE VALUE OF THAT COLUMN AND ROW
 
 
 2-D ARRAY EXAMPLE
-
-
 var twoDimentionArray = [
                           [0, 0, 0, 0],
                           [0, 0, 0, 0],
@@ -177,31 +228,22 @@ var twoDimentionArray = [
                         ]
 
 retrieveValue(twoDimentionArray, 3, 1) ===> 1
-
 */
 
 function retrieveValue(arr, row, col) {
   // CODE HERE
+  return arr[row][col];
 }
+
+
 
 /*
 QUESTION 9
 
-
-CREATE A FUNCTION THAT TAKES TWO ARGUMENTS, INTEGERS, AND RETURNS A TWO DIMENTIAL ARRAY THAT HAS ZEROS AS THE VALUES. USE LOOPS
-
-
+CREATE A FUNCTION THAT TAKES TWO ARGUMENTS, INTEGERS, AND 
+RETURNS A TWO DIMENTIAL ARRAY THAT HAS ZEROS AS THE VALUES. USE LOOPS
 
 2-D ARRAY EXAMPLE
-
-
-var twoDimentionArray = [
-                          [0, 0, 0, 0],
-                          [0, 0, 0, 0],
-                          [0, 0, 0, 0],
-                          [0, 1, 0, 0],
-                        ]
-
 createTwoDArray(3, 5) ===> [
                               [0, 0, 0, 0, 0],
                               [0, 0, 0, 0, 0],
@@ -212,14 +254,21 @@ createTwoDArray(3, 5) ===> [
 
 function createTwoDArray(row, col) {
   // CODE HERE
+  let tdArr=[];
+  for(let i=0; i<row; i++){
+    let innerArr=[];
+    for(let j=0; j<col; j++){
+      innerArr.push(0);
+    }
+    tdArr.push(innerArr);
+  }
+  return tdArr;
 }
+
+
 
 /*
 TEST SECTION, PLEASE DO NOT TOUCH
-
-
-
-
 */
 
 const Mocha = require('mocha');
